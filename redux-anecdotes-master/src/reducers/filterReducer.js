@@ -1,15 +1,20 @@
-const filter = (text) => ({
-    type: 'FILTER',
-    data: text,
-  })
+const filter = " "
 
 const filterReducer = (state = '', action) => {
     switch (action.type) {
-      case 'FILTER':
-        return action.data
+      case 'SET_FILTER':
+        return action.filter
       default:
         return state
     }
   }
+    
+  export const filterChange = filter => {
+    return {
+      type: 'SET_FILTER',
+      filter,
+    }
+  }
+  
 
   export default filterReducer
