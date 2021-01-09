@@ -18,22 +18,28 @@ const notificationReducer = (state = initialNotification, action) => {
   }
 }
 
-export const addNew = (anecdote) => {
-    return {
+export const addNew = (anecdote, time) => {
+    return async dispatch => {
+        dispatch({
         type: 'NEW_NOTIFICATION',
         data: anecdote 
+
+})
+setTimeout(() => dispatch({ type: 'EMPTY' }), time+"00")};
 }
-}
+
 export const hide = () => {
     return {
       type: 'HIDE',
     }
   }
 
-  export const notification = (anecdote) => {
-    return {
-      type: 'VOTE_NOTIFICATION',
-      data:  anecdote 
-    }
+  export const notification = (anecdote, time) => {
+    return async dispatch => {
+        dispatch ({
+        type: 'VOTE_NOTIFICATION',
+        data:  anecdote 
+    })
+    setTimeout(() => dispatch({ type: 'EMPTY' }), time+"00")};
   }
 export default notificationReducer
