@@ -8,18 +8,13 @@ const AnecdoteForm = (props) => {
         event.preventDefault()
         const content = event.target.anecdote.value
         console.log(content, "CONTENT")
-        // props.store.dispatch(addNewAnecdote(content))
-        // props.store.dispatch(addNew(content))
-        // setTimeout(() => props.store.dispatch(hide()), 5000);
-        // const newAnecdote= await anecdoteService.addNewAnecdote(content)
-        // dispatch(addNewAnecdote(newAnecdote))
         props.addNewAnecdote(content)
-        props.addNew(content, 5000)
+        props.addNew(content, 5)
         event.target.anecdote.value = ''
     }
     return (
         <div>
-            <h2>add new</h2>
+            <h2>create new</h2>
             <form onSubmit={submitAnecdote}>
                 <div><input name="anecdote" /></div>
                 <button>submit</button>

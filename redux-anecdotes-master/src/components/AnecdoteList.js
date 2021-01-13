@@ -14,7 +14,7 @@ console.log(props, "PROPS")
             anecdote={anecdote}
             handleClick={() =>{
               props.voteFor(anecdote);
-              props.notification(anecdote.content, 20);
+              props.notification(anecdote.content, 5);
             }
             }
           />
@@ -23,7 +23,9 @@ console.log(props, "PROPS")
     )
   }
 
-const anecdotesToShow = (anecdotes, filter) => {
+
+
+const filteredAnecdotes = (anecdotes, filter) => {
   if (filter){
     const filteredAnecdotes = anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filter.toLowerCase()))
     return filteredAnecdotes
@@ -32,18 +34,20 @@ const anecdotesToShow = (anecdotes, filter) => {
     return anecdotes
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    showedAnec: filteredAnecdotes(state)
+  };
+};
+
   const mapDispatchToProps = {
     voteFor,
     notification,
     
   };
   
-  const mapStateToProps = state => {
-    return {
-      showedAnec: anecdotesToShow(state)
-    };
-  };
-
+ 
   const allAnecdotes = connect(
     mapStateToProps,
     mapDispatchToProps

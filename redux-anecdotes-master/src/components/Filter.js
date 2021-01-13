@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { filterChange } from '../reducers/filterReducer'
 
 const Filter = (props) => {
-  const handleChange = (event) => {
+  const handleFilter = (event) => {
     props.filterChange(event.target.value)
 
   }
@@ -14,20 +14,20 @@ const Filter = (props) => {
 
   return (
     <div style={style}>
-      filter <input onChange={handleChange} />
+      filter <input onChange={handleFilter} />
     </div>
   )
 }
 
 
-const mapStateToProps = (state) => {
+  const mapDispatchToProps = {
+    filterChange,
+  }
+
+  const mapStateToProps = (state) => {
     return {
       filter: state.filter,
     }
-  }
-  
-  const mapDispatchToProps = {
-    filterChange,
   }
   
   export default connect(

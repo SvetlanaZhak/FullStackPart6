@@ -1,27 +1,5 @@
 import anecdoteService from '../services/anecdotes'
 
-const anecdoteReducer = (state = [], action) => {
-  switch (action.type) {
-    case 'NEW_ANECDOTE':
-      return [...state, action.data]
-    case 'VOTE':
-      const id = action.data.id
-      const anecdoteToChange = state.find(a => a.id === id)
-      const changedAnecdote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes+1
-      }
-      const mappedList = state.map(anecdote =>
-        anecdote.id !== id ? anecdote : changedAnecdote
-      )
-    return mappedList.sort((a, b) => b.votes - a.votes)
-    case "INIT_ANEC":
-      return action.data.sort((a, b) => b.votes - a.votes)
-    default:
-      return state
-  }
-}
-
 export const addNewAnecdote = (content) => { 
   return async dispatch => {
     const submitAnec = await anecdoteService.addNewAnecdote(content)
@@ -53,5 +31,25 @@ export const initializeAnecdotes = () => {
   })
 }
 }
-
+const anecdoteReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'NEW_ANECDOTE':
+      return [...state, action.data]
+    case 'VOTE':
+      const id = action.data.id
+      const updatedAnecdote = state.find(a => a.id === id)
+      const votedAnecdote = {
+        ...updatedAnecdote,
+        votes: updatedAnecdote.votes+1
+      }
+      const orderedVotes = state.map(anecdote =>
+        anecdote.id !== id ? anecdote : votedAnecdote
+      )
+    return orderedVotes.sort((a, b) => b.votes - a.votes)
+    case "INIT_ANEC":
+      return action.data.sort((a, b) => b.votes - a.votes)
+    default:
+      return state
+  }
+}
 export default anecdoteReducer
